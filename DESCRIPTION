@@ -1,0 +1,15 @@
+Package: lclust
+Type: Package
+Version: 1.0
+Date: 2015-05-04
+Title: n-steps Louvain clustering
+Description: R implementation of Louvain clustering algorithm
+Authors@R: c(
+    person("Kirill", "Ponomarev",  "ponomkirill@gmail.com", c("aut", "cre")),
+    )
+URL: https://github.com/kponomarev/lclust
+Depends:
+    R (>= 3.1.2)
+    igraph
+LazyData: yes
+License: MIT 
