@@ -13,8 +13,6 @@
 #' and represents it as one node
 #' \item Theese two steps repeats \code{n} times
 #' }
-#' 
-#' 
 #'@param A symmetric adjacency matrix
 #'@param n number of steps 
 #'@export
@@ -57,12 +55,6 @@ lclust <- function(A = matrix(), n = 1) {
   }
   
 }
-#' @section References
-#' 
-#' Blondel, Vincent D., et al. "Fast unfolding of communities in large networks."
-#' Journal of Statistical Mechanics: Theory and Experiment 2008.10 (2008): P10008.
-
-
 # helper functions --------------------------------------------------
 # matching vector with list elements
 listMatch <- function(x = list(), k = с()) {
