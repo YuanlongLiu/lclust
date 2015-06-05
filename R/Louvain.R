@@ -67,7 +67,6 @@ listMatch <- function(x = list(), k = с()) {
   }
   return(0)
 }
-
 # merging several elements of a list together
 combine <- function(list = list(), id = c()) {
   res <- c()
@@ -76,7 +75,6 @@ combine <- function(list = list(), id = c()) {
   }
   return(res)
 }
-
 # one pass of a matrix
 firstPass <- function(A = matrix()) {
   M <- A - diag( diag(A) )
@@ -129,7 +127,6 @@ firstPass <- function(A = matrix()) {
   
   return(groups)
 }
-
 # aggregation function
 agregate <- function(groups = list(), A = matrix()) {
   n <- length(groups)
@@ -141,12 +138,3 @@ agregate <- function(groups = list(), A = matrix()) {
   }
   return(S) 
 }
-
-
-
-
-
-
-
-
-
