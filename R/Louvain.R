@@ -58,6 +58,7 @@ lclust <- function(A = matrix(), n = 1) {
   
 }
 #' @section References
+#' 
 #' Blondel, Vincent D., et al. "Fast unfolding of communities in large networks."
 #' Journal of Statistical Mechanics: Theory and Experiment 2008.10 (2008): P10008.
 # helper functions --------------------------------------------------
@@ -146,22 +147,6 @@ agregate <- function(groups = list(), A = matrix()) {
     }
   }
   return(S) 
-}
-
-
-# plotting function
-draw <- function(A = matrix(), groups = list(), colors = terrain.colors(length(groups)), main = "") {
-  if (! "package:igraph" %in% search() ) library("igraph") 
-  
-  cols <- rep(0, nrow(A))
-  for (i in 1:length(groups)) {
-    cols[groups[[i]]] <- colors[i]
-  }
-  g <- graph.adjacency(A, mode = "undirected")
-  
-  plot.igraph(g, vertex.color = cols, vertex.size = 20,
-              vertex.label.color = "black", main = main)
-  legend(x = "bottomleft", legend = paste("N =", length(groups)), bty = "n")
 }
 
 

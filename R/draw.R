@@ -1,16 +1,20 @@
 #' draw a clustered graph
 #'
-#' Function \code{draw} employs the output of \code{lclust(A, n)} or any arbitrary grouping
+#' Function \code{draw} employs the output of \code{lclust(A, n)} or any arbitrary list of groups
 #' to plot a nice clustered graph.
 #'
 #' @param A symmetric adjacency matrix
-#' @param groups list where each element denotes the cluster, possibly the result of \code{lclust(A, n)}
-#' @param colors palette which consist of at least \code{length(groups)} colors, default is 
+#' @param groups list where each element denotes the cluster, possibly \code{lclust(A, n)}
+#' @param colors palette which consist of at least as much as number of groups colors, default is 
 #' \code{terrain.colors(legth(group))}
 #' 
 #' @export 
 #' @examples 
-#' draw(A, )
+#' A <- Crude
+#' draw(A, lclust(A, 2))
+#' B <- matrix(c(0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0), 4, 4)
+#' groups <- list(c(1, 3), c(2, 4))
+#' draw(B, groups)
 draw <- function(A = matrix(), groups = list(), colors = terrain.colors(length(groups)), main = "") {
   if (! "package:igraph" %in% search() ) library("igraph") 
   

@@ -10,16 +10,20 @@ draw(A = matrix(), groups = list(),
 \arguments{
 \item{A}{symmetric adjacency matrix}
 
-\item{groups}{list where each element denotes the cluster, possibly the result of \code{lclust(A, n)}}
+\item{groups}{list where each element denotes the cluster, possibly \code{lclust(A, n)}}
 
-\item{colors}{palette which consist of at least \code{length(groups)} colors, default is
+\item{colors}{palette which consist of at least as much as number of groups colors, default is
 \code{terrain.colors(legth(group))}}
 }
 \description{
-Function \code{draw} employs the output of \code{lclust(A, n)} or any arbitrary grouping
+Function \code{draw} employs the output of \code{lclust(A, n)} or any arbitrary list of groups
 to plot a nice clustered graph.
 }
 \examples{
-draw(A, )
+A <- Crude
+draw(A, lclust(A, 2))
+B <- matrix(c(0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0), 4, 4)
+groups <- list(c(1, 3), c(2, 4))
+draw(B, groups)
 }
 
