@@ -1,8 +1,8 @@
 #' lclust
 #' 
 #' This function is an implementation of Louvain method --- a fast clustering algorithm.
-#' It is designed in the way that one can use the output of the algorithm after each
-#' step and manually define the number of steps. 
+#' It is designed in the way that one can manually define the number of steps and use the output
+#' after any arbitrary number of steps.
 #' 
 #' The main properties of the algorithm:
 #'\itemize{
@@ -13,12 +13,16 @@
 #' and represents it as one node
 #' \item Theese two steps repeats \code{n} times
 #' }
-#'@param A symmetric adjacency matrix
-#'@param n number of steps 
-#'@export
-#'@examples
+#' @return list of groups
+#' @param A symmetric adjacency matrix
+#' @param n number of steps 
+#' @export
+#' @examples
 #' lclust(A, n = 2)
 #' lclust(A)
+#' @references Blondel, V. D., Guillaume, J. L., Lambiotte, R., & Lefebvre, E. (2008). 
+#' Fast unfolding of communities in large networks. Journal of Statistical Mechanics: 
+#' Theory and Experiment, 2008(10), P10008.
 lclust <- function(A = matrix(), n = 1) {
   global <- list()
   

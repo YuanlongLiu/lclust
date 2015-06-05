@@ -11,10 +11,13 @@ lclust(A = matrix(), n = 1)
 
 \item{n}{number of steps}
 }
+\value{
+list of groups
+}
 \description{
 This function is an implementation of Louvain method --- a fast clustering algorithm.
-It is designed in the way that one can use the output of the algorithm after each
-step and manually define the number of steps.
+It is designed in the way that one can manually define the number of steps and use the output
+after any arbitrary number of steps.
 }
 \details{
 The main properties of the algorithm:
@@ -30,5 +33,10 @@ and represents it as one node
 \examples{
 lclust(A, n = 2)
 lclust(A)
+}
+\references{
+Blondel, V. D., Guillaume, J. L., Lambiotte, R., & Lefebvre, E. (2008).
+Fast unfolding of communities in large networks. Journal of Statistical Mechanics:
+Theory and Experiment, 2008(10), P10008.
 }
 
