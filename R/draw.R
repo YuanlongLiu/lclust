@@ -10,7 +10,6 @@
 #' 
 #' @export 
 #' @examples 
-#' A <- data(crude)
 #' draw(A, lclust(A, 2))
 #' B <- matrix(c(0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0), 4, 4)
 #' groups <- list(c(1, 3), c(2, 4))

@@ -20,7 +20,6 @@ Function \code{draw} employs the output of \code{lclust(A, n)} or any arbitrary 
 to plot a nice clustered graph.
 }
 \examples{
-A <- data(crude)
 draw(A, lclust(A, 2))
 B <- matrix(c(0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0), 4, 4)
 groups <- list(c(1, 3), c(2, 4))
