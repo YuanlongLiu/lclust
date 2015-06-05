@@ -17,7 +17,6 @@
 #'@param n number of steps 
 #'@export
 #'@examples
-#' A <- Crude
 #' lclust(A, n = 2)
 #' lclust(A)
 lclust <- function(A = matrix(), n = 1) {

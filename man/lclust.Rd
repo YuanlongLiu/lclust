@@ -28,7 +28,6 @@ and represents it as one node
 }
 }
 \examples{
-A <- Crude
 lclust(A, n = 2)
 lclust(A)
 }
