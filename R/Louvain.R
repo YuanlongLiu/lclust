@@ -32,7 +32,7 @@ lclust <- function(A = matrix(), n = 1) {
     for (i in 1:n) {
       global[[i]] <- firstPass(A)  
       if (i < n) {
-        S <- agregate(firstPass(A), A)
+        S <- aggregate(firstPass(A), A)
         A <- S
       }
     }
@@ -133,12 +133,13 @@ firstPass <- function(A = matrix()) {
   return(groups)
 }
 # aggregation function
-agregate <- function(groups = list(), A = matrix()) {
+aggregate <- function(groups = list(), A = matrix()) {
   n <- length(groups)
   S <- matrix(rep(0, n*n), n, n)
   for (i in 1:n) {
     for (j in 1:n) {
-      S[i,j] <- sum( as.vector( A[groups[[i]], groups[[j]]] ))
+     if (i == j) S[i,j] <- sum( as.vector( A[groups[[i]], groups[[j]]] )) / 2
+     else S[i,j] <- sum( as.vector( A[groups[[i]], groups[[j]]] ))
     }
   }
   return(S) 
