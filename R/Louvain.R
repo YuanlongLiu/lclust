@@ -85,7 +85,7 @@ firstPass <- function(A = matrix()) {
   m <- sum( diag(A) ) + sum( as.vector(M) ) / 2
   
   groups <- as.list( 1:ncol(A) )
-
+  modularity <- 0
   repeat {
   controls <- c()
   for (i in 1:nrow(A)) {
@@ -115,6 +115,7 @@ firstPass <- function(A = matrix()) {
       groups[[length(groups) + 1]] <- c(groups[[res]], i)
       del <- listMatch(groups, i)
       groups <- groups[-c(del, res)]
+      modularity <- modularity + Q[which.max(Q)]
     }
     
     cond <- sapply(groups, function(x) length(x))
@@ -129,7 +130,7 @@ firstPass <- function(A = matrix()) {
   if( min(res) > 1 | sum(controls) == 0) break
     
 }
-  
+  print(modularity)
   return(groups)
 }
 # aggregation function
