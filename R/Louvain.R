@@ -130,7 +130,6 @@ firstPass <- function(A = matrix()) {
   if( min(res) > 1 | sum(controls) == 0) break
     
 }
-  print(modularity)
   return(groups)
 }
 # aggregation function
