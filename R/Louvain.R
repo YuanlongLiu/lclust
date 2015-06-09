@@ -96,7 +96,8 @@ firstPass <- function(A = matrix()) {
       
       if ( sum( M[ i, groups[[j]] ] ) > 0) {
         id <- groups[[j]]
-        Sin <- sum( as.vector(A[id, id]) ) / 2 
+       if (length(id) > 1) Sin <- sum( as.vector(A[id, id]) ) / 2 
+       else Sin <- sum( as.vector(A[id, id]) ) 
         kin <- sum( A[i, id] )                  
         kall <- sum( A[i, ])                    
         Sout <- sum( as.vector(A[id, -id]) )
@@ -111,7 +112,7 @@ firstPass <- function(A = matrix()) {
     
     if (sum(Q) > 0) {
       res <- which.max(Q)
-      groups[[length(groups) + 1 ]] <- c(groups[[res]], i)
+      groups[[length(groups) + 1]] <- c(groups[[res]], i)
       del <- listMatch(groups, i)
       groups <- groups[-c(del, res)]
     }
