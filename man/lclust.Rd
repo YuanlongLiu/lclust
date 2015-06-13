@@ -4,7 +4,7 @@
 \alias{lclust}
 \title{lclust}
 \usage{
-lclust(A = matrix(), n = 1)
+lclust(A = matrix(), n = 5)
 }
 \arguments{
 \item{A}{symmetric adjacency matrix}

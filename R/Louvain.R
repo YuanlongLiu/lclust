@@ -23,7 +23,7 @@
 #' @references Blondel, V. D., Guillaume, J. L., Lambiotte, R., & Lefebvre, E. (2008). 
 #' Fast unfolding of communities in large networks. Journal of Statistical Mechanics: 
 #' Theory and Experiment, 2008(10), P10008.
-lclust <- function(A = matrix(), n = 1) {
+lclust <- function(A = matrix(), n = 5) {
   global <- list()
   
   if (n == 1) { 
@@ -32,8 +32,7 @@ lclust <- function(A = matrix(), n = 1) {
     for (i in 1:n) {
       global[[i]] <- firstPass(A)  
       if (i < n) {
-        S <- aggregate(firstPass(A), A)
-        A <- S
+        A <- aggregate(firstPass(A), A)
       }
     }
     
@@ -42,7 +41,7 @@ lclust <- function(A = matrix(), n = 1) {
       res <- list()
       upper <- global[[j]]
       lower <- global[[j-1]]
-      for (k in 1:length(upper) ) {
+      for (k in 1:length(upper)) {
         id <- upper[[k]]
         add <- combine(lower, id)
         res <- append(res, list(add))
@@ -144,7 +143,6 @@ firstPass <- function(A = matrix()) {
 # print(mod)
   return(groups)
 }
-
 # aggregation function
 aggregate <- function(groups = list(), A = matrix()) {
   n <- length(groups)
