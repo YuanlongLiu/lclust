@@ -26,9 +26,9 @@
 lclust <- function(A = matrix(), n = 1) {
   global <- list()
   
-  if (n == 1) return(firstPass(A))
-  else {
-    
+  if (n == 1) { 
+    return(firstPass(A)) 
+  } else {
     for (i in 1:n) {
       global[[i]] <- firstPass(A)  
       if (i < n) {
@@ -81,32 +81,44 @@ combine <- function(list = list(), id = c()) {
 }
 # one pass of a matrix
 firstPass <- function(A = matrix()) {
+  
+  g <- graph.adjacency(A)
   M <- A - diag( diag(A) )
   m <- sum( diag(A) ) + sum( as.vector(M) ) / 2
-  
   groups <- as.list( 1:ncol(A) )
-  modularity <- 0
+  # mod <- modularity(g, groups)
+  
   repeat {
   controls <- c()
   for (i in 1:nrow(A)) {
     
     if (listMatch(groups, i) > 0) {
     Q <- c()
+    
     for (j in 1:length(groups)) {
       
-      if ( sum( M[ i, groups[[j]] ] ) > 0) {
-        id <- groups[[j]]
-       if (length(id) > 1) Sin <- sum( as.vector(A[id, id]) ) / 2 
-       else Sin <- sum( as.vector(A[id, id]) ) 
+      if ( sum( M[ i, groups[[j]] ] ) > 0) { # if node i has at least one neighbor in this group
+       id <- groups[[j]]
+       if (length(id) > 1) {
+         Sin <- sum(diag(A[id, id])) + sum( as.vector(M[id, id]) ) / 2 
+       } else { 
+         Sin <- sum( as.vector(A[id, id]) ) 
+       }
         kin <- sum( A[i, id] )                  
-        kall <- sum( A[i, ])                    
-        Sout <- sum( as.vector(A[id, -id]) )
-        dQ <- (Sin + kin) / (2*m) - ( (Sout + kall) / (2*m) )^2 - Sin / (2*m) +
-                                    ( Sout / (2*m) )^2 + ( kall / (2*m) )^2
-        if (dQ > 0)  Q <- c(Q, dQ)
-        else Q <- c(Q, 0)
+        kall <- sum( A[i, ])  
+         
+        Stot <- Sin + sum( as.vector(A[id, -id]) )
+       
+        dQ <- kin/2/m - Stot*kall/2/m^2
+       
+        if (dQ > 0)  {
+          Q <- c(Q, dQ)
+        } else {
+          Q <- c(Q, 0)
+        }
+      } else {
+        Q <- c(Q, 0)
       }
-      else Q <- c(Q, 0) 
       
     }
     
@@ -115,31 +127,37 @@ firstPass <- function(A = matrix()) {
       groups[[length(groups) + 1]] <- c(groups[[res]], i)
       del <- listMatch(groups, i)
       groups <- groups[-c(del, res)]
-      modularity <- modularity + Q[which.max(Q)]
+     # mod <- mod + Q[which.max(Q)]
     }
     
     cond <- sapply(groups, function(x) length(x))
     if (min(cond) > 1) break
     
-    controls <- c(controls, Q)
+     controls <- c(controls, Q)
      }
     
   }
   
-  res <- sapply(groups, function(x) length(x))
-  if( min(res) > 1 | sum(controls) == 0) break
-    
+   res <- sapply(groups, function(x) length(x))
+   if( min(res) > 1 | sum(controls) == 0) break
 }
+# print(mod)
   return(groups)
 }
+
 # aggregation function
 aggregate <- function(groups = list(), A = matrix()) {
   n <- length(groups)
   S <- matrix(rep(0, n*n), n, n)
   for (i in 1:n) {
     for (j in 1:n) {
-     if (i == j) S[i,j] <- sum( as.vector( A[groups[[i]], groups[[j]]] )) / 2
-     else S[i,j] <- sum( as.vector( A[groups[[i]], groups[[j]]] ))
+     if (i == j) {
+       L <- A[ groups[[i]], groups[[j]] ]
+       M <- L - diag(diag(L))
+       S[i,j] <- sum(diag(L)) + sum( as.vector( M )) / 2
+     } else {
+       S[i,j] <- sum( as.vector( L ))
+     }
     }
   }
   return(S) 
