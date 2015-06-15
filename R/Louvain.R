@@ -58,11 +58,12 @@ lclust <- function(A = matrix(), n = 5) {
   
 }
 # helper functions --------------------------------------------------
+
 # matching vector with list elements
 listMatch <- function(x = list(), k = с()) {
   for (i in 1:length(x)) {
     if ( length(x[[i]]) == length(k)) {
-      if ( sum(x[[i]] == k) == length(k) )  {
+      if ( sum(x[[i]] == k) == length(k) ) {
         return(i)
         break
       }
@@ -70,6 +71,7 @@ listMatch <- function(x = list(), k = с()) {
   }
   return(0)
 }
+
 # merging several elements of a list together
 combine <- function(list = list(), id = c()) {
   res <- c()
@@ -78,6 +80,7 @@ combine <- function(list = list(), id = c()) {
   }
   return(res)
 }
+
 # one pass of a matrix
 firstPass <- function(A = matrix()) {
   
@@ -105,9 +108,7 @@ firstPass <- function(A = matrix()) {
        }
         kin <- sum( A[i, id] )                  
         kall <- sum( A[i, ])  
-         
         Stot <- Sin + sum( as.vector(A[id, -id]) )
-       
         dQ <- kin/2/m - Stot*kall/2/m^2
        
         if (dQ > 0)  {
@@ -123,16 +124,16 @@ firstPass <- function(A = matrix()) {
     
     if (sum(Q) > 0) {
       res <- which.max(Q)
-      groups[[length(groups) + 1]] <- c(groups[[res]], i)
+      groups[[res]] <- c(groups[[res]], i)
       del <- listMatch(groups, i)
-      groups <- groups[-c(del, res)]
+      groups <- groups[-del]
      # mod <- mod + Q[which.max(Q)]
-    }
+    } 
     
     cond <- sapply(groups, function(x) length(x))
     if (min(cond) > 1) break
     
-     controls <- c(controls, Q)
+    controls <- c(controls, Q[which.max(Q)])
      }
     
   }
@@ -143,14 +144,15 @@ firstPass <- function(A = matrix()) {
 # print(mod)
   return(groups)
 }
+
 # aggregation function
 aggregate <- function(groups = list(), A = matrix()) {
   n <- length(groups)
   S <- matrix(rep(0, n*n), n, n)
   for (i in 1:n) {
     for (j in 1:n) {
-     if (i == j) {
        L <- A[ groups[[i]], groups[[j]] ]
+     if (i == j) {
        M <- L - diag(diag(L))
        S[i,j] <- sum(diag(L)) + sum( as.vector( M )) / 2
      } else {
